@@ -6,7 +6,7 @@ on:
       KERNEL_REPO:
         description: 'KERNEL_REPO'
         required: true
-        default: 'https://github.com/zainarbani/kernel-mtk'
+        default: 'https://github.com/AndroDesk/kernel-mtk'
       KERNEL_BRANCH:
         description: 'KERNEL_BRANCH'
         required: true
@@ -28,8 +28,8 @@ jobs:
       run: |
         sudo apt update  &> /dev/null
         sudo apt -y install gawk aria2 git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler python2 python3 &> /dev/null
-        git config --global user.name "bot"
-        git config --global user.email "bot@email.com"
+        git config --global user.name "builder"
+        git config --global user.email delta@builder.com"
         mkdir -p $GITHUB_WORKSPACE/project
           
     - name: Prepare TC
@@ -53,8 +53,8 @@ jobs:
         export DATE=$(date "+%Y%m%d-%H%M")
         echo "BUILD_DATE=$(date "+%Y%m%d%H%M")" >> $GITHUB_ENV
         export ARCH=arm64
-        export KBUILD_BUILD_HOST=builder
-        export KBUILD_BUILD_USER=zainarbani
+        export KBUILD_BUILD_HOST=DeltaHost
+        export KBUILD_BUILD_USER=Troublescope
         export KBUILD_COMPILER_STRING="$(clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
         echo "-OverHeat-LTO" > localversion
         make O=out ARCH=$ARCH ${{ github.event.inputs.KERNEL_DEFCONFIG }}
@@ -106,4 +106,4 @@ jobs:
           
           <b>Config: </b>${{ github.event.inputs.KERNEL_DEFCONFIG }}
           <b>Build Date: </b>${{ env.BUILD_DATE }}
-          <b>Maintainer: </b>@AnotherZain
+          <b>Maintainer: </b>@Kai_verse
