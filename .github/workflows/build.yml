@@ -98,7 +98,7 @@ jobs:
         format: html
         disable_web_page_preview: true
         message: |
-          <b>OverHeat-Kernel Update</b>
+          <b>Bionic Pulse edition Update</b>
           
           <a href="https://github.com/${{ github.repository }}/releases/tag/${{ env.BUILD_DATE }}">Download</a>
 
