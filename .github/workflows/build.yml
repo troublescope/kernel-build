@@ -72,9 +72,9 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/project/AnyKernel3
         cp $GITHUB_WORKSPACE/project/Image.gz-dtb Image.gz-dtb
-        zip -r9 $GITHUB_WORKSPACE/project/Bionic|Delta-1.1.zip -- *
+        zip -r9 $GITHUB_WORKSPACE/project/Bionic-Delta-1.1.zip -- *
         cp $GITHUB_WORKSPACE/project/Image.gz-dtb-ksu Image.gz-dtb
-        zip -r9 $GITHUB_WORKSPACE/project/Bionic|Delta-KSU-1.1.zip -- *
+        zip -r9 $GITHUB_WORKSPACE/project/Bionic-Delta-KSU-1.1.zip -- *
 
     - name: Upload Build Log and Release
       uses: actions/upload-artifact@v2
