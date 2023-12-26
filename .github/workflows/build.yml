@@ -6,11 +6,11 @@ on:
       KERNEL_REPO:
         description: 'KERNEL_REPO'
         required: true
-        default: 'https://github.com/AndroDesk/kernel-mtk'
+        default: 'https://github.com/AndroDesk/android_kernel_xiaomi_rosemary'
       KERNEL_BRANCH:
         description: 'KERNEL_BRANCH'
         required: true
-        default: 's'
+        default: 'lineage-21'
       KERNEL_DEFCONFIG:
         description: 'KERNEL_DEFCONFIG'
         required: true
@@ -28,8 +28,8 @@ jobs:
       run: |
         sudo apt update  &> /dev/null
         sudo apt -y install gawk aria2 git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler python2 python3 &> /dev/null
-        git config --global user.name "builder"
-        git config --global user.email "delta@builder.com"
+        git config --global user.name "troublescope"
+        git config --global user.email "121922135+troublescope@users.noreply.github.com"
         mkdir -p $GITHUB_WORKSPACE/project
           
     - name: Prepare TC
@@ -71,9 +71,9 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/project/AnyKernel3
         cp $GITHUB_WORKSPACE/project/Image.gz-dtb Image.gz-dtb
-        zip -r9 $GITHUB_WORKSPACE/project/BionicPulse-1.0.zip -- *
+        zip -r9 $GITHUB_WORKSPACE/project/Bionic|Delta-1.1.zip -- *
         cp $GITHUB_WORKSPACE/project/Image.gz-dtb-ksu Image.gz-dtb
-        zip -r9 $GITHUB_WORKSPACE/project/BionicPulse-KSU-1.0.zip -- *
+        zip -r9 $GITHUB_WORKSPACE/project/Bionic|Delta-KSU-1.1.zip -- *
 
     - name: Upload Build Log and Release
       uses: actions/upload-artifact@v2
