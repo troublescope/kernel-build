@@ -53,10 +53,10 @@ jobs:
         export DATE=$(date "+%Y%m%d-%H%M")
         echo "BUILD_DATE=$(date "+%Y%m%d%H%M")" >> $GITHUB_ENV
         export ARCH=arm64
-        export KBUILD_BUILD_HOST=delta@github.com
+        export KBUILD_BUILD_HOST=github-ci
         export KBUILD_BUILD_USER=Troublescope
         export KBUILD_COMPILER_STRING="$(clang --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
-        echo "-Bionic-v1.1" > localversion
+        echo "-Bionic-v1.2" > localversion
         make O=out ARCH=$ARCH ${{ github.event.inputs.KERNEL_DEFCONFIG }}
         make -j$(nproc --all) O=out CC=clang ARCH=$ARCH CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- LLVM=1 LLVM_IAS=1 LD=ld.lld NM=llvm-nm AR=llvm-ar OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump > $GITHUB_WORKSPACE/buildlog.txt 2>&1 || true
         cp out/arch/arm64/boot/Image.gz-dtb $GITHUB_WORKSPACE/project/Image.gz-dtb
@@ -72,9 +72,9 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/project/AnyKernel3
         cp $GITHUB_WORKSPACE/project/Image.gz-dtb Image.gz-dtb
-        zip -r9 $GITHUB_WORKSPACE/project/Bionic-Delta-1.1.zip -- *
+        zip -r9 $GITHUB_WORKSPACE/project/Bionic-Delta-1.2.zip -- *
         cp $GITHUB_WORKSPACE/project/Image.gz-dtb-ksu Image.gz-dtb
-        zip -r9 $GITHUB_WORKSPACE/project/Bionic-Delta-KSU-1.1.zip -- *
+        zip -r9 $GITHUB_WORKSPACE/project/Bionic-Delta-KSU-1.2.zip -- *
 
     - name: Upload Build Log and Release
       uses: actions/upload-artifact@v2
@@ -86,8 +86,8 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          ${{ github.workspace }}/project/Bionic-Delta-1.1.zip
-          ${{ github.workspace }}/project/Bionic-Delta-KSU-1.1.zip
+          ${{ github.workspace }}/project/Bionic-Delta-1.2.zip
+          ${{ github.workspace }}/project/Bionic-Delta-KSU-1.2.zip
           ${{ github.workspace }}/build-log/buildlog.txt
         name: Bionic-Delta-${{ env.BUILD_DATE }}
         tag_name: ${{ env.BUILD_DATE }}
